@@ -1,27 +1,77 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <h1 :class="setClass">Ahorros: ${{ ahorros }}</h1>
+  <h1 :class="asignaClase()">Ahorros: ${{ ahorros }}</h1>
+  <button @click="deposita">Deposita</button>
+  <button @click="depositar">Depositar</button>
+  <button @click="retira">Retirar</button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+<script setup lang="ts">
+import { ref, computed } from "vue";
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld
+const ahorros = ref<number>(500);
+
+const deposita = () => {
+  ahorros.value += 100;
+}
+
+const depositar = () => {
+  ahorros.value += 100;
+}
+
+const retira = () => {
+  ahorros.value -= 100;
+}
+
+const setClass = computed(() => {
+  if (ahorros.value >= 500) {
+    return "verde";
   }
+  return "rojo";
 });
+
+const asignaClase = () => {
+  if (ahorros.value >= 500) {
+    return "verde";
+  }
+  return "rojo";
+}
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<!--
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+
+export default defineComponent({
+  components: {},
+  setup() {
+    const ahorros = ref<number>(500);
+    const deposita = () => {
+      ahorros.value += 100;
+    }
+    return {
+      ahorros,
+      deposita
+    }
+  },
+  methods: {
+    depositar() {
+      this.ahorros += 100;
+    }
+  },
+  computed: {
+
+  }
+})
+</script>
+-->
+
+<style scoped>
+.verde {
+  color: green;
+}
+
+.rojo {
+  color: red;
 }
 </style>
